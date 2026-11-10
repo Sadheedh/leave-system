@@ -30,6 +30,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            // Integer cast so manager_id === $user->id comparisons in policies are int vs int.
+            'manager_id' => 'integer',
         ];
     }
 

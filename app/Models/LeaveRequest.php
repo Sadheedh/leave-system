@@ -33,6 +33,11 @@ class LeaveRequest extends Model
             'start_date' => 'date',
             'end_date' => 'date',
             'reviewed_at' => 'datetime',
+            // Integer casts so strict === comparisons in the policy are int vs int, not string vs int.
+            'user_id' => 'integer',
+            'leave_type_id' => 'integer',
+            'reviewed_by' => 'integer',
+            'days' => 'integer',
         ];
     }
 

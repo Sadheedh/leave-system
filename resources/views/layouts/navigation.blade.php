@@ -21,6 +21,11 @@
                     <x-nav-link :href="route('balances.index')" :active="request()->routeIs('balances.*')">
                         {{ __('My Balances') }}
                     </x-nav-link>
+                    @can('review-leave-requests')
+                        <x-nav-link :href="route('team-requests.index')" :active="request()->routeIs('team-requests.*')">
+                            {{ __('Team Requests') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -82,6 +87,11 @@
             <x-responsive-nav-link :href="route('balances.index')" :active="request()->routeIs('balances.*')">
                 {{ __('My Balances') }}
             </x-responsive-nav-link>
+            @can('review-leave-requests')
+                <x-responsive-nav-link :href="route('team-requests.index')" :active="request()->routeIs('team-requests.*')">
+                    {{ __('Team Requests') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
