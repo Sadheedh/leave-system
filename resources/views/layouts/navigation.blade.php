@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('leave-requests.index')" :active="request()->routeIs('leave-requests.*')">
+                        {{ __('My Requests') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('balances.index')" :active="request()->routeIs('balances.*')">
+                        {{ __('My Balances') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -69,6 +75,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('leave-requests.index')" :active="request()->routeIs('leave-requests.*')">
+                {{ __('My Requests') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('balances.index')" :active="request()->routeIs('balances.*')">
+                {{ __('My Balances') }}
             </x-responsive-nav-link>
         </div>
 

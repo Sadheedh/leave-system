@@ -13,6 +13,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class LeaveRequest extends Model
 {
     /**
+     * Default attribute values, so new requests always start as pending.
+     *
+     * @var array<string, string>
+     */
+    protected $attributes = [
+        'status' => 'pending',
+    ];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
