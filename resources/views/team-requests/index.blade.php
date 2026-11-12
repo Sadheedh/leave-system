@@ -13,6 +13,12 @@
                 </div>
             @endif
 
+            @if (session('error'))
+                <div class="p-4 text-sm text-red-800 bg-red-100 rounded-md">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200 text-sm">

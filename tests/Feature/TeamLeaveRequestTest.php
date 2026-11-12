@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LeaveBalance;
 use App\Models\LeaveRequest;
 use App\Models\LeaveType;
 use App\Models\User;
@@ -16,6 +17,11 @@ beforeEach(function () {
     $this->managerB = User::factory()->manager()->create(['manager_id' => $this->admin->id]);
     $this->staffA = User::factory()->create(['name' => 'Alice Staff', 'manager_id' => $this->managerA->id]);
     $this->staffB = User::factory()->create(['name' => 'Bob Staff', 'manager_id' => $this->managerB->id]);
+
+    // Approving now deducts days, so every user whose request gets approved needs a balance (year = start_date year).
+    foreach ([$this->staffA, $this->managerA] as $user) {
+        LeaveBalance::create(['user_id' => $user->id, 'leave_type_id' => $this->leaveType->id, 'year' => 2026, 'days_remaining' => 30]);
+    }
 });
 
 /**

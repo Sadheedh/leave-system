@@ -30,12 +30,32 @@ class LeaveRequestPolicy
     }
 
     /**
-     * Only the owner may cancel, and only while the request is still pending or approved.
-     * Strict in_array so a stray type never matches by loose comparison.
+     * Only the owner may cancel.
+     * A pending request can always be withdrawn: it never had days deducted, so the balance is untouched.
+     * An approved request can only be cancelled while its start date is still in the future, because once
+     * the leave has begun the days are used and must not be handed back.
      */
     public function cancel(User $user, LeaveRequest $leaveRequest): bool
     {
+        if ($leaveRequest->user_id !== $user->id) {
+            return false;
+        }
+
+        if ($leaveRequest->status === 'pending') {
+            return true;
+        }
+
+        return $leaveRequest->status === 'approved'
+            && $leaveRequest->start_date->greaterThan(today());
+    }
+
+    /**
+     * Only the owner and the owner's manager may open the detail page.
+     * There is deliberately no admin bypass: an admin who is not the owner's manager gets a 403.
+     */
+    public function view(User $user, LeaveRequest $leaveRequest): bool
+    {
         return $leaveRequest->user_id === $user->id
-            && in_array($leaveRequest->status, ['pending', 'approved'], true);
+            || $leaveRequest->user->manager_id === $user->id;
     }
 }

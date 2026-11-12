@@ -15,7 +15,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::resource('leave-requests', LeaveRequestController::class)->only(['index', 'create', 'store']);
+    Route::resource('leave-requests', LeaveRequestController::class)->only(['index', 'create', 'store', 'show']);
+    Route::post('/leave-requests/{leaveRequest}/cancel', [LeaveRequestController::class, 'cancel'])->name('leave-requests.cancel');
     Route::get('/balances', [LeaveBalanceController::class, 'index'])->name('balances.index');
 
     // Only managers and admins get past this gate; the policy then checks each individual request.
