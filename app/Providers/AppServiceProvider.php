@@ -26,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
 
         // Coarse gate for the team pages (route middleware + nav link); per-request rules live in LeaveRequestPolicy.
         Gate::define('review-leave-requests', fn (User $user): bool => $user->isManager() || $user->isAdmin());
+
+        // Admin-only page (route middleware + nav link); managers pass the gate above but not this one.
+        Gate::define('view-admin-page', fn (User $user): bool => $user->isAdmin());
     }
 }

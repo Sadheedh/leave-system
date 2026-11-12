@@ -26,6 +26,11 @@
                             {{ __('Team Requests') }}
                         </x-nav-link>
                     @endcan
+                    @can('view-admin-page')
+                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')">
+                            {{ __('Admin') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -90,6 +95,11 @@
             @can('review-leave-requests')
                 <x-responsive-nav-link :href="route('team-requests.index')" :active="request()->routeIs('team-requests.*')">
                     {{ __('Team Requests') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view-admin-page')
+                <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.*')">
+                    {{ __('Admin') }}
                 </x-responsive-nav-link>
             @endcan
         </div>

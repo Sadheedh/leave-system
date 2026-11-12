@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LeaveBalanceController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/team-requests/{leaveRequest}/approve', [TeamLeaveRequestController::class, 'approve'])->name('team-requests.approve');
         Route::post('/team-requests/{leaveRequest}/reject', [TeamLeaveRequestController::class, 'reject'])->name('team-requests.reject');
     });
+
+    // Read-only admin overview; only admins get past this gate (managers and staff receive a 403).
+    Route::get('/admin', [AdminController::class, 'index'])->middleware('can:view-admin-page')->name('admin.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
